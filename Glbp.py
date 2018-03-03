@@ -82,9 +82,6 @@ def discard(nonZeroIndexes, consec):
     # return (len(nonZeroIndexes) == 0 or len(nonZeroIndexes) == 8 or len(consec) == 4)
 
 
-
-
-
 # Input: Matriz 3x3
 
 def glbpData(matrix):
@@ -124,14 +121,14 @@ def glbpTable(cell):
 
 # x = glbpData(np.array([[4, 100, 200], [135, 80, 20],[120,32,5]]))
 
-y = np.random.randint(0, 256, size=(16, 16))
+# y = np.random.randint(0, 256, size=(16, 16))
 
-y = cv2.imread('test2.png')
-y = cv2.cvtColor(y, cv2.COLOR_BGR2GRAY)
+# y = cv2.imread('test2.png')
+# y = cv2.cvtColor(y, cv2.COLOR_BGR2GRAY)
 
-glbp = glbpTable(y)
-plt.figure(1)
-plt.imshow(y, cmap='gray')
-plt.figure(2)
-plt.bar(range(len(glbp)), glbp, color='r', align='center')
-plt.show()
+# glbp = glbpTable(y)
+# plt.figure(1)
+# plt.imshow(y, cmap='gray')
+# plt.figure(2)
+# plt.bar(range(len(glbp)), glbp, color='r', align='center')
+# plt.show()
