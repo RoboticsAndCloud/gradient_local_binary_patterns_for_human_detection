@@ -16,7 +16,7 @@ def glbpData(matrix):
     matrixB = matrix > matrix[1][1]
     matrixB = matrixB.astype(int)
 
-    a = np.zeros(8, np.int8)
+    a = np.zeros(8, np.uint8)
     numberShift = 0
 
     a[0] = matrixB[1][2]
@@ -37,10 +37,10 @@ def glbpData(matrix):
     cons = consecutive(nonZeroIndexes) # array de arrays con numeros consecutivos
 
     # vector = np.zeros((4, 8))
-    output = np.zeros((4, 3), np.int8)
+    output = np.zeros((4, 3), np.uint8)
 
     for i in range(0, len(cons)):
-        vector = np.zeros((8), np.int8)
+        vector = np.zeros((8), np.uint8)
         vector[cons[i]] = 1
 
         width = np.count_nonzero(vector)
@@ -55,15 +55,35 @@ def glbpData(matrix):
             output[i][0] = width
             output[i][1] = angle
             output[i][2] = round(gradient(matrix[1][0], matrix[1][2], matrix[0][1], matrix[2][1]))
-    print(output)
+
+    # print(output)
     return output
 
-table = np.zeros((7, 8), np.int8)
-matrix = np.array([[180, 176, 168], [179, 175, 170], [169, 174, 180]])
-tempMatrix = glbpData(matrix)
+def glbpTable(cell):
+    table = np.zeros((7, 8), np.uint8)
 
-for i in range(0, 4):
-    if tempMatrix[i][0] != 0:
-        table[tempMatrix[i][0] - 1][tempMatrix[i][1]] = tempMatrix[i][2]
+    for i in range(0, 13):
+        for j in range(0, 13):
+            matrix = cell[i:i+3, j:j+3]
+            # print(matrix)
+            tempMatrix = glbpData(matrix)
+            print(tempMatrix)
+            for i in range(0, 4):
+                if tempMatrix[i][0] != 0:
+                    if tempMatrix[i][2] < 0:
+                        print("NEGATIVO")
+                    table[tempMatrix[i][0] - 1][tempMatrix[i][1]] = tempMatrix[i][2]
 
-print(table)
+    return table
+
+y = np.random.randint(100, 256, size=(16, 16))
+# print(y)
+
+glbp = glbpTable(y)
+print(glbp)
+
+histogram = cv2.calcHist([glbp], [0], None, [256], [0, 256])
+plt.plot(histogram, 'c')
+#plt.imshow(glbp, cmap = 'gray')
+plt.show()
+
