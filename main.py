@@ -6,9 +6,9 @@ import time
 
 
 
-fileName = 'test.png'
-fileName2 = 'test1.png'
-fileName3 = 'background.png'
+fileName = './images/test.png'
+fileName2 = './images/test1.png'
+fileName3 = './images/background.png'
 
 image = cv2.imread(fileName)
 image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
