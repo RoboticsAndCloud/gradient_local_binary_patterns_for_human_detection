@@ -112,10 +112,6 @@ def glbpTable(cell):
         for j in range(0, 13):
             matrix = cell[i:i+3, j:j+3]
             tempVector = glbpData(matrix)
-            print("Table: ")
-            print(table)
-            print("Vector:")
-            print(tempVector)
             table += tempVector
     return table
 
