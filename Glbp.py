@@ -121,3 +121,15 @@ def glbpTable(cell):
             table += glbpData(cell[i:i+3, j:j+3])
     return table
 
+def finalHistogram(img):
+    total = []
+    for i in range(0, 128-8, 8):
+        for j in range(0, 64-8, 8):        
+            tempTable = glbpTable(img[i:i+15, j:j+15])
+            total = np.append(total, tempTable)
+    norm = np.linalg.norm(total, 2)
+    return np.divide(total, norm)
+
+def printGLBPHistogram(array, figure):
+    plt.figure(figure)
+    plt.bar(range(len(array)), array, color='r', align='center')
