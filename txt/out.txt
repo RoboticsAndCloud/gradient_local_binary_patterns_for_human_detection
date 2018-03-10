@@ -1,0 +1,3 @@
+person1.png
+person2.png
+person3.png
