@@ -9,7 +9,9 @@ def train(svm, data, answers):
     trainData = np.array(data, dtype=np.float32)
     trainLabels = np.array(answers, dtype=np.float32)
     svm.train(trainData, cv2.ml.ROW_SAMPLE, trainLabels.astype(int))
-    svm.save('svm_data.dat')
+
+def save(svm, name):
+    svm.save(name)
 
 def createSVM():
     svm = cv2.ml.SVM_create()

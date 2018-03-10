@@ -4,6 +4,7 @@ from matplotlib import pyplot as plt
 import Glbp as glpb
 import train
 
+
 def getArrays():
     # Leemos los archivos binarios
     persons = np.load('./txt/hogPE2.txt')
@@ -35,3 +36,4 @@ print('Starting to train')
 
 svm = train.createSVM()
 train.train(svm, hog, responses)
+train.save(svm, 'saveData.dat')
