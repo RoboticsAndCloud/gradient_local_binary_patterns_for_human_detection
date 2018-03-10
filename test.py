@@ -4,11 +4,11 @@ from matplotlib import pyplot as plt
 import Glbp as glpb
 import train
 
-svm = cv2.ml.SVM_load('svm_data.dat')
+svm = cv2.ml.SVM_load('saveData.dat')
 
 def getTotal():
-    persons = np.load('./txt/hogPE2_DataTest.npy')
-    backgrounds = np.load('./txt/hogBG2_DataTest.npy')
+    persons = np.load('./txt/PTest_bin.npy')
+    backgrounds = np.load('./txt/BGTestNames_bin.npy')
 
     hog = np.append(persons, backgrounds)
     hog = np.reshape(hog, (-1,5880))
@@ -20,8 +20,16 @@ testData = np.array(hog, dtype=np.float32)
 
 # Imprimos la respuesta
 testResponse = svm.predict(testData)[1].ravel()
-print(testResponse)
-print('Porcentaje correcto: ')
-print(np.count_nonzero(testResponse))
-print('Porcentaje incorrecto: ')
-print(100 - np.count_nonzero(testResponse))
+print('Respuesta de personas: ')
+print(testResponse[:100])
+print('Respuesta de fondos: ')
+print(testResponse[100:])
+print('Porcentaje de personas correcto: ')
+print(np.count_nonzero(testResponse[:100]))
+print('Porcentaje de personas incorrecto: ')
+print(100 - np.count_nonzero(testResponse[:100]))
+
+print('Porcentaje de fondos correcto: ')
+print(100 - np.count_nonzero(testResponse[100:]))
+print('Porcentaje de fondos incorrecto: ')
+print(np.count_nonzero(testResponse[100:]))

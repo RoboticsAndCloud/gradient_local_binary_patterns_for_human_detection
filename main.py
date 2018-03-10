@@ -7,9 +7,9 @@ import train
 
 def getArrays():
     # Leemos los archivos binarios
-    persons = np.load('./txt/hogPE2.txt')
+    persons = np.load('./txt/PData_bin.npy')
     print('Persons read')
-    backgrounds = np.load('./txt/hogBG2.txt')
+    backgrounds = np.load('./txt/BGData_bin.npy')
     print('Backgrounds read')
 
     persons2len = len(np.reshape(persons, (-1, 5880)))

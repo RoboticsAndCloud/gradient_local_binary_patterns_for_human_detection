@@ -3,3 +3,4 @@ txt/
 svm_data.dat
 __pycache__/
 svm_data.dat
+*.dat
