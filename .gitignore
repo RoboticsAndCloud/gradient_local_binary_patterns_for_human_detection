@@ -1,2 +1,4 @@
 images/
 txt/
+svm_data.dat
+__pycache__/
