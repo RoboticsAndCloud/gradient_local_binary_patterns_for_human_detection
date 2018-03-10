@@ -127,7 +127,7 @@ def finalHistogram(img):
         for j in range(0, 64-8, 8):        
             tempTable = glbpTable(img[i:i+15, j:j+15])
             total = np.append(total, tempTable)
-    norm = np.linalg.norm(total, 2)
+    norm = 100 * np.linalg.norm(total, 2)
     return np.divide(total, norm)
 
 def printGLBPHistogram(array, figure):
