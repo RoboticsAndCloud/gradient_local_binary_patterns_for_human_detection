@@ -5,9 +5,9 @@ import Glbp as glpb
 import time
 import os
 
-files = os.listdir("./images/person")
+files = os.listdir("./images/Background")
 
-np.savetxt('out.txt', files, fmt='%s')
+np.savetxt('outBG.txt', files, fmt='%s')
 
 h = np.loadtxt('out.txt', dtype='str')
 
