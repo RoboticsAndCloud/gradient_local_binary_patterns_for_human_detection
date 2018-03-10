@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 import Glbp as glpb
-import Train as train
+import train
 import time
 
 
@@ -24,16 +24,24 @@ import time
 # testResponse = svm.predict(testData)[1].ravel()
 # print(testResponse)
 
-persons = np.loadtxt('/txt/persons.txt', dtype='str')
-backgrounds = np.loadtxt('/txt/backgrounds.txt', dtype='str')
+persons = np.loadtxt('./txt/hogPE.txt', dtype='str')
+backgrounds = np.loadtxt('./txt/hogBG.txt', dtype='str')
 
-persons = np.reshape(persons, (-1, 5880))
-backgrounds = np.reshape(backgrounds, (-1, 5880))
+persons2 = np.reshape(persons, (-1, 5880))
+backgrounds2 = np.reshape(backgrounds, (-1, 5880))
+
 hog = np.append(persons, backgrounds)
+hog = np.reshape(hog, (-1,5880))
+print(len(hog))
 
-responsesPersons = np.ones(len(persons), np.uint8)
-responsesBackgrounds = np.ones(len(backgrounds), np.uint8)
+responsesPersons = np.ones(len(persons2), np.uint8)
+responsesBackgrounds = np.zeros(len(backgrounds2), np.uint8)
 responses = np.append(responsesPersons, responsesBackgrounds)
 
 svm = train.createSVM()
 train.train(svm, hog, responses)
+
+testData = np.array(hog[20:50], dtype=np.float32)
+
+testResponse = svm.predict(testData)[1].ravel()
+print(testResponse)

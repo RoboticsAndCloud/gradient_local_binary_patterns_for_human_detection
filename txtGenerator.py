@@ -7,19 +7,19 @@ import os
 
 files = os.listdir("./images/Background")
 
-np.savetxt('outBG.txt', files, fmt='%s')
+np.savetxt('./txt/outBG.txt', files, fmt='%s')
 
-h = np.loadtxt('out.txt', dtype='str')
+h = np.loadtxt('./txt/outBG.txt', dtype='str')
 
 # print(h)
 out = []
 
 for file in h:
-    fileName = ('./images/person/%s' % file)
+    fileName = ('./images/Background/%s' % file)
     print(fileName)
     image = cv2.imread(fileName)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     final = glpb.finalHistogram(image)
     out = np.append(out, final)
     
-np.savetxt('hog.txt', out)
+np.savetxt('./txt/hogBG.txt', out)
