@@ -18,15 +18,15 @@ svm.setKernel(cv2.ml.SVM_LINEAR)
 h = np.loadtxt('outBG.txt', dtype='str')
 out = []
 
-for file in h:
-    fileName = ('./images/Background/%s' % file)
+for files in h:
+    fileName = ('./images/Background/%s' % files)
     print(fileName)
     image = cv2.imread(fileName)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     final = glpb.finalHistogram(image)
     out = np.append(out, final)
     
-np.savetxt('hog.txt', out)
+np.savetxt('./txt/hogBG.txt', out)
 
 
 # svm.save('svm_data.dat')
