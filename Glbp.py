@@ -130,6 +130,7 @@ def finalHistogram(img):
     norm = np.linalg.norm(total, 2) / 100
     return np.divide(total, norm)
 
-def printGLBPHistogram(array, figure):
+def printGLBPHistogram(array, figure, title):
     plt.figure(figure)
+    plt.title(title)
     plt.bar(range(len(array)), array, color='r', align='center')

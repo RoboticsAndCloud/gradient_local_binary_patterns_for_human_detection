@@ -8,11 +8,12 @@ import math
 # Leemos los archivos binarios
 persons = np.load('./txt/PData_bin.npy')
 persons = np.reshape(persons, (-1, 5880))
-print('Persons read')
+print('%s fotos de personas encontradas...' % len(persons))
 backgrounds = np.load('./txt/BGData_bin.npy')
 backgrounds = np.reshape(backgrounds, (-1, 5880))
-print('Backgrounds read')
-print('Entranando con los ultimos 2/3')
+print('%s fotos de fondos encontradas...' % len(backgrounds))
+print('Entrenaremos con los últimos 2/3 del dataset...')
+
 
 trainPersonsMin = math.floor(len(persons)*1/3)
 trainPersonsMax = len(persons)
@@ -37,11 +38,12 @@ responses = np.append(responsesPersons, responsesBackgrounds)
 trainHog = np.append(personsTrainData.flatten(), backgroundsTrainData.flatten())
 trainHog = np.reshape(trainHog, (-1,5880))
 
-print('Starting to train')
+print('Entrenando...')
 
 svm = train.createSVM()
 train.train(svm, trainHog, responses)
 train.save(svm, 'saveData.dat')
+print('Probando...')
 
 testHog = np.append(personsTestData.flatten(), backgroundsTestData.flatten())
 testHog = np.reshape(testHog, (-1, 5880))
@@ -49,14 +51,10 @@ testHog = np.reshape(testHog, (-1, 5880))
 testData = np.array(testHog, dtype=np.float32)
 testResponse = svm.predict(testData)[1].ravel()
 
-print('Porcentaje de personas correcto: ')
 correctPersons = np.count_nonzero(testResponse[:testPersonsMax - testPersonsMin])/(testPersonsMax - testPersonsMin)*100
-print("{:.2f}".format(correctPersons))
-print('Porcentaje de personas incorrecto: ')
-print("{:.2f}".format(100 - correctPersons))
+print('Personas correctas: {:.2f}%'.format(correctPersons))
+print('Personas incorrectas: {:.2f}%'.format(100 - correctPersons))
 
-print('Porcentaje de fondos correcto: ')
 wrongBackgrounds = np.count_nonzero(testResponse[testPersonsMax - testPersonsMin:])/(testBackgroundsMax-testBackgroundsMin)*100
-print("{:.2f}".format(100 - wrongBackgrounds))
-print('Porcentaje de fondos incorrecto: ')
-print("{:.2f}".format(wrongBackgrounds))
+print('Fondos correctos: {:.2f}%' .format(100 - wrongBackgrounds))
+print('Fondos incorrectos: {:.2f}%' .format(wrongBackgrounds))
