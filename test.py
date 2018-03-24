@@ -1,30 +1,43 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-import Glbp as glpb
-import train
+import Glbp as glbp
+import time
+import os
 
+fotos = 10
 svm = cv2.ml.SVM_load('saveData.dat')
+# Generamos la lista de nombres de las fotos.
+files = os.listdir("./images/testData")
 
-def getTotal():
-    persons = np.load('./txt/PTest_bin.npy')
-    backgrounds = np.load('./txt/BGTestNames_bin.npy')
+np.savetxt('./txt/testTxt.txt', files, fmt='%s')
 
-    hog = np.append(persons, backgrounds)
-    hog = np.reshape(hog, (-1,5880))
-    return hog
+# Leemos cada archivo y hacemos su glbp.
+h = np.loadtxt('./txt/testTxt.txt', dtype='str')
+out = []
+j = 1
+i = 0
+for files in h:
+    fileName = ('./images/testData/%s' % files)
+    image = cv2.cvtColor(cv2.imread(fileName), cv2.COLOR_BGR2GRAY)
+    tempHog = glbp.finalHistogram(image)
+    print()
+    print(files)
+    print(tempHog)
+    if(i == 0 or i == 5):
+        glbp.printGLBPHistogram(tempHog, j, fileName)
+        j += 1
+    i += 1
+    out = np.append(out, tempHog)
 
-# Asignamos el test data
-hog = getTotal()
+hog = np.reshape(out, (-1,5880))
+
+out = None
 testData = np.array(hog, dtype=np.float32)
-
-# Imprimos la respuesta
 testResponse = svm.predict(testData)[1].ravel()
-print('Respuesta de personas: ')
-print(testResponse[:100])
-print('Respuesta de fondos: ')
-print(testResponse[100:])
-print('Personas correctas: {:.2f}%'.format(np.count_nonzero(testResponse[:100])))
-print('Personas incorrectas: {:.2f}%'.format(100 - np.count_nonzero(testResponse[:100])))
-print('Fondos correctos: {:.2f}%'.format(100 - np.count_nonzero(testResponse[100:])))
-print('Fondos incorrectos: {:.2f}%'.format(np.count_nonzero(testResponse[100:])))
+print()
+print('Personas: ')
+print(testResponse[:5])
+print('Fondos: ')
+print(testResponse[5:])
+plt.show()

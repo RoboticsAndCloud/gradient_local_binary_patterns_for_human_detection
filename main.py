@@ -1,11 +1,11 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-import Glbp as glpb
+import Glbp as glbp
 import train
 import math
 
-# Leemos los archivos binarios
+# Leemos los archivos binarios con la data de los GLBP previamente calculados.
 persons = np.load('./txt/PData_bin.npy')
 persons = np.reshape(persons, (-1, 5880))
 print('%s fotos de personas encontradas...' % len(persons))

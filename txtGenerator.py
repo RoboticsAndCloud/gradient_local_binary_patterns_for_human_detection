@@ -1,8 +1,7 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-import Glbp as glpb
-import time
+import Glbp as glbp
 import os
 
 # Generamos la lista de nombres de las fotos
@@ -19,6 +18,6 @@ for files in h:
     i += 1
     print(i)
     image = cv2.cvtColor(cv2.imread(fileName), cv2.COLOR_BGR2GRAY)
-    out = np.append(out, glpb.finalHistogram(image))
+    out = np.append(out, glbp.finalHistogram(image))
     
 np.save('./txt/PTest_bin', out)
