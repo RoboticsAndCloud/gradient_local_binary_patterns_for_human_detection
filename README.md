@@ -1,9 +1,9 @@
 # Gradient Local Binary Patterns for Human Detection
 
-Implementación del algoritmo de detección de humanos publicado por Ning Jiang, Jiu Xu, Wenxin Yu and Satoshi Goto.
+Implementation of the paper "Gradient Local Binary Patters for Human Detection" by Ning Jiang, Jiu Xu, Wenxin Yu and Satoshi Goto.
 
 
-Equipo:
+Team:
 
 Gabriel Noya
 
